@@ -7,13 +7,18 @@ import { getDetailsApi } from '../http/axios'
 export const useStore = defineStore<Name, State, Getters, Actions>('cocktail', {
   actions: {
     async fetchDetail() {
-        try {
-            const { status, data } =  await getDetailsApi(this.activeCocktail.toLowerCase())
-            if(status){
-                this.data = data.drinks;
-            }
-        } catch (error) {
-            console.error(error);
+        if(!this.allData.has(this.activeCocktail)){
+            try {
+                const { status, data } =  await getDetailsApi(this.activeCocktail.toLowerCase())
+                if(status){
+                    this.data = data.drinks;
+                    this.allData.set(this.activeCocktail, data.drinks)
+                }
+            } catch (error) {
+                console.error(error);
+            } 
+        }else{
+           this.data = this.allData.get(this.activeCocktail)!
         }
     }
   },
@@ -55,7 +60,8 @@ export const useStore = defineStore<Name, State, Getters, Actions>('cocktail', {
             'Kir',
             '404'
         ],
-        data: []
+        data: [],
+        allData: new Map()
     }
   }
 })

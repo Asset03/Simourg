@@ -6,6 +6,7 @@ export type State = {
   activeCocktail: string
   listCocktails: Array<string>
   data: Array<Record<string, unknown>>
+  allData: Map<string,Array<Record<string, unknown>>>
 }
 
 export type Getters = {

@@ -25,7 +25,7 @@ const store = useStore()
 
 const activeCocktail = computed(() => store.getActiveCocktail)
 const listCocktails = computed(() => store.getListCocktails)
-debugger
+
 const onClick = (item: string) => {
   store.activeCocktail= item
 }
